@@ -1,18 +1,18 @@
 #!/usr/bin/python
 from random import choice
 
-class Gene(dict):
-    def __init__(self, key, trait, traits, **kwargs):
-        super(Gene, self).__init__(kwargs)
+class Gene(object):
+    def __init__(self, key, trait, traits,):
         self.key = key
         self.trait = trait
-        self.traits = traits
+        self.possible_traits = traits
 
     def __str__(self):
-        return '{}::{} ({{}})'.format(self.key, self.trait, self.traits)
+        return '{}::{} {})'.format(self.key, self.trait,
+                                    self.possible_traits)
     
     def mutate(self):
-        self.trait = choice(traits)
+        self.trait = choice(list(self.possible_traits))
 
 
 class Chromosome(object):
@@ -49,7 +49,7 @@ class Chromosome(object):
 
 class Lifeform(object):
     def __init__(self, chrom_list=None, gen_chrom=None):
-        #Create a list of random chromosomes if none provided and generation func provided 
+        #TODO: Create a list of random chromosomes if none provided and generation func provided 
         pass
 
     def f(self):
@@ -81,8 +81,10 @@ if __name__ == '__main__':
     #print d
     #print c.split(0.4)
 
-    g = Gene('x', 'active', set('active', 'inactive', 'dead')
+    g = Gene('x', 'active', frozenset(('active', 'inactive', 'dead')))
     print g
-    print g.traits
+    print g.possible_traits
+    g.mutate()
+    print g
 
 
