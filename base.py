@@ -3,13 +3,11 @@ import random
 
 class Gene(object):
     def __init__(self, key, trait, traits,):
-        self.key = key
         self.trait = trait
         self.possible_traits = traits
 
     def __str__(self):
-        return '{}::{} {})'.format(self.key, self.trait,
-                                    self.possible_traits)
+        return '{} {})'.format(self.trait, self.possible_traits)
     
     def mutate(self):
         self.trait = random.choice(list(self.possible_traits))
@@ -31,8 +29,6 @@ class Chromosome(object):
                 v.mutate()
                 print v
 
-
-
     def cross(self, prob, gene2):
         pass
 
@@ -49,3 +45,4 @@ class Chromosome(object):
                a[k] = v
            i += 1
         return (a, b)
+

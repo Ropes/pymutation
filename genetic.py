@@ -36,11 +36,18 @@ if __name__ == '__main__':
 
     x = Gene('x', 'action', set(['action', 'inaction', 'protection']))
     y = Gene('y', 'love', set(['love', 'hate', 'kindness',
-                                'spite', 'malice', 'adoration'])
-    z = Gene('z', 'fire', set(['fire', 'water', 'earth', 'wind'])
+                                'spite', 'malice', 'adoration']))
+    z = Gene('z', 'fire', set(['fire', 'water', 'earth', 'wind']))
 
     genes = {'x': x, 'y': y, 'z': z}
     c = Chromosome(genes)
+    print c
+    c.mutate(0.30)
+    print c
+    c.mutate(0.30)
+    print c
+    c.mutate(0.30)
+    print c
 
 
 
