@@ -29,26 +29,25 @@ class Population(object):
         pass
 
 if __name__ == '__main__':
-    g0 = {'x': 0, 'y': 1, 'z': 2, 'xx': 12, 'yy': 84, 'zz': 34}
-    g1 = {'x': 5, 'y': 4, 'z': 9, 'xx': 43, 'yy': 193, 'zz': 81}
-    c = Chromosome(g0)
-    d = Chromosome(g1)
-
     x = Gene('x', 'action', set(['action', 'inaction', 'protection']))
-    y = Gene('y', 'love', set(['love', 'hate', 'kindness',
-                                'spite', 'malice', 'adoration']))
+    y = Gene('y', 'love', set(['love', 'hate', 'kindness', 'malice']))
     z = Gene('z', 'fire', set(['fire', 'water', 'earth', 'wind']))
-
+    
+    X = Gene('x', 'inaction', set(['action', 'inaction', 'protection']))
+    Y = Gene('y', 'hate', set(['love', 'hate', 'kindness', 'malice']))
+    Z = Gene('z', 'earth', set(['fire', 'water', 'earth', 'wind']))
+    
     genes = {'x': x, 'y': y, 'z': z}
-    c = Chromosome(genes)
-    print c
-    c.mutate(0.30)
-    print c
-    c.mutate(0.30)
-    print c
-    c.mutate(0.30)
-    print c
+    gy = {'x': X, 'y': Y, 'z': Z}
 
+    c = Chromosome(genes)
+    d = Chromosome(gy)
+    
+    print c
+    print d
+
+    x = c.crossover(0.5, d)
+    print x
 
 
 

@@ -29,8 +29,20 @@ class Chromosome(object):
                 v.mutate()
                 print v
 
-    def cross(self, prob, gene2):
-        pass
+    def crossover(self, prob, chrom2):
+        i = 0
+        split = int(len(self.genes)*prob)
+        offspring = {}
+        for k,v in self.genes.items():
+            if i > split:
+                offspring[k] = chrom2.genes[k] 
+            else:
+                offspring[k] = self.genes[k]
+
+        #print offspring
+        return Chromosome(offspring)
+        
+
 
     def split(self, percentage_point):
         x = int(len(self.genes) * percentage_point)
