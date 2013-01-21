@@ -42,6 +42,18 @@ if __name__ == '__main__':
 
     c = Chromosome(genes)
     d = Chromosome(gy)
+
+    def len_eval(genes):
+        i = 0
+        for k,v in genes.items():
+            print v.trait
+            i += len(v.trait)
+        return i
+
+    print 'len test:', len_eval(gy)
+
+    ia = Individual(len_eval, c)
+    ib = Individual(len_eval, d)
     
     print c
     print d

@@ -1,4 +1,3 @@
-
 import random
 
 class Gene(object):
@@ -42,11 +41,8 @@ class Chromosome(object):
         #print offspring
         return Chromosome(offspring)
         
-
-
     def split(self, percentage_point):
         x = int(len(self.genes) * percentage_point)
-        print x
         i = 0
         a = {}
         b = {}
@@ -57,4 +53,22 @@ class Chromosome(object):
                a[k] = v
            i += 1
         return (a, b)
+
+class Individual(object):
+    def __init__(self, fitness_func, chrom):
+        self.chromosome = chrom 
+        self.eval_fitness = fitness_func 
+
+    def __str__(self):
+        x = str(self.chromosome)
+        x += str(self.eval_fitness)
+        return x
+
+    def mate(self, partner):
+        pass
+
+
+    @property
+    def fitness(self):
+        return self.eval_fitness(self.chromosome.genes)
 
