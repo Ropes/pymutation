@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from base import *
+from copy import deepcopy
 
 class Being(object):
     def __init__(self, chrom_list=None, gen_chrom=None):
@@ -29,13 +30,24 @@ class Population(object):
         pass
 
 if __name__ == '__main__':
-    x = Gene('x', 'action', set(['action', 'inaction', 'protection']))
-    y = Gene('y', 'love', set(['love', 'hate', 'kindness', 'malice']))
-    z = Gene('z', 'fire', set(['fire', 'water', 'earth', 'wind']))
+    a = Gene('x', traits=set(['action', 'inaction', 'protection']))
+    b = Gene('y', traits=set(['love', 'hate', 'kindness', 'malice']))
+    c = Gene('z', traits=set(['fire', 'water', 'earth', 'wind']))
+
+    x = deepcopy(a) 
+    y = deepcopy(b) 
+    z = deepcopy(c)
+    x.trait = 'action'
+    y.trait = 'love'
+    z.trait = 'fire'
     
-    X = Gene('x', 'inaction', set(['action', 'inaction', 'protection']))
-    Y = Gene('y', 'hate', set(['love', 'hate', 'kindness', 'malice']))
-    Z = Gene('z', 'earth', set(['fire', 'water', 'earth', 'wind']))
+    X = deepcopy(a) 
+    Y = deepcopy(b) 
+    Z = deepcopy(c)
+    X.trait = 'inaction'
+    Y.trait = 'hate'
+    Z.trait = 'earth'
+
     
     genes = {'x': x, 'y': y, 'z': z}
     gy = {'x': X, 'y': Y, 'z': Z}
@@ -50,10 +62,12 @@ if __name__ == '__main__':
             i += len(v.trait)
         return i
 
-    print 'len test:', len_eval(gy)
-
     ia = Individual(len_eval, c)
     ib = Individual(len_eval, d)
+    print ia
+    print ib
+
+    print
     
     print c
     print d

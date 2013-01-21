@@ -1,7 +1,7 @@
 import random
 
 class Gene(object):
-    def __init__(self, key, trait, traits,):
+    def __init__(self, key, trait=None, traits=None,):
         self.trait = trait
         self.possible_traits = traits
 
