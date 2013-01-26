@@ -6,23 +6,28 @@ from random import choice
 
 
 class Population(object):
-    def __init__(self, size=5):
+    def __init__(self, indivs, size=5):
         self.size = size
-        self.individuals = []
+        self.indivs = indivs
 
     def crossover(self):
         prob = 5.0
         pass
 
-    def mutation(self):
-        prob = 0.08
+    def mutation(self, prob=0.05):
         for i in self.individuals:
             i.chromosome.mutate(prob)
 
     def selection(self):
+        #TODO: Create list
+        evals = [ (i.fitness, i) for i in self.indivs ]
+        evals.sort(reverse=True)
+        print evals
+
         #Pick the best, mate them
         #Pick top 60%
-        pass
+
+    
 
 if __name__ == '__main__':
     a = Gene( traits=set(['action', 'inaction', 'protection', 
@@ -66,11 +71,13 @@ if __name__ == '__main__':
     print 'ic'
     print ic
     ''' 
-
+    
+    indies = []
     for x in range(0, 10):
         genes = get_genes()
         c = Chromosome(genes)
-        i = Individual(c, len_eval)
-        print i
-        print x
+        indies.append( Individual(c, len_eval) )
 
+    pop = Population(indies, size=3)
+    pop.selection()
+    
