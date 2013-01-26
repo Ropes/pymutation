@@ -1,7 +1,7 @@
 import random
 
 class Gene(object):
-    def __init__(self, key, trait=None, traits=None,):
+    def __init__(self, trait=None, traits=None,):
         self.trait = trait
         self.possible_traits = traits
 
@@ -55,12 +55,13 @@ class Chromosome(object):
         return (a, b)
 
 class Individual(object):
-    def __init__(self, fitness_func, chrom):
+    def __init__(self, chrom, fitness_func=None ):
         self.chromosome = chrom 
         self.eval_fitness = fitness_func 
 
     def __str__(self):
-        x = str(self.chromosome)
+       
+        x = 'Individual: ' + str(self.chromosome)
         x += str(self.eval_fitness)
         return x
 
