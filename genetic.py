@@ -38,12 +38,12 @@ if __name__ == '__main__':
     j = deepcopy(d)
     k = deepcopy(e)
     l = deepcopy(f)
-    x.trait = 'action'
-    y.trait = 'love'
-    z.trait = 'fire'
     j.trait = 'yin'
     k.trait = 'segfault'
     l.trait = 'vbo'
+    x.trait = 'action'
+    y.trait = 'love'
+    z.trait = 'fire'
     
     X = deepcopy(a) 
     Y = deepcopy(b) 
@@ -51,12 +51,12 @@ if __name__ == '__main__':
     J = deepcopy(d)
     K = deepcopy(e)
     L = deepcopy(f)
-    X.trait = 'inaction'
-    Y.trait = 'hate'
-    Z.trait = 'earth'
     J.trait = 'yang'
     K.trait = 'syntax'
     L.trait = 'shader'
+    X.trait = 'inaction'
+    Y.trait = 'hate'
+    Z.trait = 'earth'
 
     genes = {'x': x, 'y': y, 'z': z, 'j': j, 'k': k, 'l': l}
     gy = {'x': X, 'y': Y, 'z': Z, 'j': J, 'k': K, 'l': L}
@@ -75,11 +75,12 @@ if __name__ == '__main__':
     ib = Individual(len_eval, d)
 
     i = 0
-    while i < 10:
-        i += 1
-        print '============================================================'
-        ic = ia.mate(ib)
-        print
-        print 'ic'
-        print ic
+    print ia
+    print ib
+
+    print '============================================================'
+    ic = Individual( ia.mate(ib), len_eval )
+    print
+    print 'ic'
+    print ic
      
