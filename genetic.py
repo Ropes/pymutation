@@ -2,6 +2,7 @@
 
 from base import *
 from copy import deepcopy
+from random import choice
 
 
 class Population(object):
@@ -32,6 +33,22 @@ if __name__ == '__main__':
     f = Gene('l', traits=set([ 'render', 'shader', 'particle', 'buffer', 
                                 'stencil', 'vbo', 'vertext', 'mesh', 'screen' ]))
 
+    def get_genes():
+        x = deepcopy(a) 
+        y = deepcopy(b) 
+        z = deepcopy(c)
+        j = deepcopy(d)
+        k = deepcopy(e)
+        l = deepcopy(f)
+        j.trait = choice(list(j.possible_traits))
+        k.trait = choice(list(k.possible_traits))
+        l.trait = choice(list(l.possible_traits))
+        x.trait = choice(list(x.possible_traits))
+        y.trait = choice(list(y.possible_traits))
+        z.trait = choice(list(z.possible_traits))
+        return {'x': x, 'y': y, 'z': z, 'j': j, 'k': k, 'l': l}
+
+    '''
     x = deepcopy(a) 
     y = deepcopy(b) 
     z = deepcopy(c)
@@ -83,4 +100,10 @@ if __name__ == '__main__':
     print
     print 'ic'
     print ic
-     
+    ''' 
+
+    for x in range(0, 10):
+        genes = get_genes()
+        print genes
+        for k,v in genes.items():
+            print k,v

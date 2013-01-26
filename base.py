@@ -65,7 +65,10 @@ class Individual(object):
         return x
 
     def mate(self, male):
-        '''Take current indevidual and mate them with another indevidual'''
+        '''Take current indevidual and mate them with another indevidual.
+            Returns a Chromosome object to be inserted in new individual. 
+        '''
+
         i = 0
         c = Chromosome(self.chromosome.genes)
         chosen = None
@@ -73,17 +76,13 @@ class Individual(object):
             if i <= 0:
                 i = int((len(male.chromosome.genes) * random.random())*0.4)+1
                 if random.random() > 0.5: 
-                    #print 'choosing self'
                     chosen = self
                 else:
-                    #print 'choosing male'
                     chosen = male
                 c.genes[k].trait = chosen.chromosome.genes[k].trait
-                #print c.genes[k].trait
             else:
                 i -= 1
                 c.genes[k].trait = chosen.chromosome.genes[k].trait
-                #print c.genes[k].trait
         return c
 
     @property
