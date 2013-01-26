@@ -65,8 +65,24 @@ class Individual(object):
         return x
 
     def mate(self, partner):
-        pass
-
+        '''Take current indevidual and mate them with another indevidual'''
+        i = 0
+        c = Chromosome(self.chromosome.genes)
+        chosen = None
+        for k,v in self.chromosome.genes.items():
+            if i <= 0:
+                i = int(len(partner.chromosome.genes) * random.random())+1
+                print 'i: {}'.format(i)
+                if random.random() > 0.5: 
+                    chosen = self
+                else:
+                    chosen = partner
+                print 'chosen: {}'.format(chosen)
+            else:
+                i -= 1
+                c.genes[k] = chosen.chromosome.genes[k]
+                print i, k, c.genes[k]
+        return c
 
     @property
     def fitness(self):
