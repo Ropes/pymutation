@@ -25,17 +25,21 @@ class Population(object):
 
         indies = []
         #Eliteism used to pick best two parentsPick the best, mate them
-        schmexya = evals.pop()
-        schmexyb = evals.pop()
-        messiah = schmexya.mate(schmexyb, schmexya.eval_fitneess)
-        self.indivs = [schmexya, schmexyb, messiah]
+        schmexya = evals.pop()[1]
+        schmexyb = evals.pop()[1]
+        messiah = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
+        messiah2 = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
+        messiah3 = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
+        self.indivs = [schmexya, schmexyb, messiah, messiah2, messiah3]
         
-        while len(self.indivs) < self.size:
+        #print 'indivs', self.indivs
+        print len(self.indivs), len(evals), self.size
+        while len(self.indivs) < self.size and len(evals) > 2:
             #NOTE: currently parrents are swingers and just randomly have children
-            a = evals.pop(int(len(evals) * random.random()) )
-            b = evals.pop(int(len(evals) * random.random()) )
-
-            self.indivs.append(a.mate(b, a.eval_fitness))
+            a = evals.pop(int(len(evals) * random.random()) )[1]
+            b = evals.pop(int(len(evals) * random.random()) )[1]
+            self.indivs.append(Individual(a.mate(b), a.eval_fitness))
+            self.indivs.append(Individual(a.mate(b), a.eval_fitness))
             
 
 if __name__ == '__main__':
@@ -49,6 +53,18 @@ if __name__ == '__main__':
     f = Gene( traits=set([ 'render', 'shader', 'particle', 'buffer', 
                                 'stencil', 'vbo', 'vertext', 'mesh', 'screen' ]))
     Genes = [a, b, c, d, e, f] 
+    print
+    print
+    print
+    print
+    print
+    print
+    print
+    print
+    print
+    print
+    print
+
     def get_genes():
         gs = {}
         i = 0
@@ -67,18 +83,18 @@ if __name__ == '__main__':
             i += len(v.trait)
         return i
 
-    '''
-    ic = Individual( ia.mate(ib), len_eval )
-    ''' 
-    
     indies = []
     for x in range(0, 10):
         genes = get_genes()
         c = Chromosome(genes)
         indies.append( Individual(c, len_eval) )
 
-    pop = Population(indies, size=3)
-    pop.mutation()
-    pop.selection()
+    pop = Population(indies, size=20)
+    i = 0
+    while i < 100:
+        i += 1
+        print 'GENERATION ==============================================='
+        pop.mutation()
+        pop.selection()
     
 
