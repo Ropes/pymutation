@@ -6,7 +6,7 @@ from random import choice
 
 
 class Population(object):
-    def __init__(self, indivs, size=5):
+    def __init__(self, indivs, size=20):
         self.size = size
         self.indivs = indivs
 
@@ -14,20 +14,29 @@ class Population(object):
         prob = 5.0
         pass
 
-    def mutation(self, prob=0.05):
-        for i in self.individuals:
+    def mutation(self, prob=0.09):
+        for i in self.indivs:
             i.chromosome.mutate(prob)
 
-    def selection(self):
-        #TODO: Create list
+    def selection(self, proletariat=0.6):
         evals = [ (i.fitness, i) for i in self.indivs ]
         evals.sort(reverse=True)
         print evals
 
-        #Pick the best, mate them
-        #Pick top 60%
+        indies = []
+        #Eliteism used to pick best two parentsPick the best, mate them
+        schmexya = evals.pop()
+        schmexyb = evals.pop()
+        messiah = schmexya.mate(schmexyb, schmexya.eval_fitneess)
+        self.indivs = [schmexya, schmexyb, messiah]
+        
+        while len(self.indivs) < self.size:
+            #NOTE: currently parrents are swingers and just randomly have children
+            a = evals.pop(int(len(evals) * random.random()) )
+            b = evals.pop(int(len(evals) * random.random()) )
 
-    
+            self.indivs.append(a.mate(b, a.eval_fitness))
+            
 
 if __name__ == '__main__':
     a = Gene( traits=set(['action', 'inaction', 'protection', 
@@ -59,17 +68,7 @@ if __name__ == '__main__':
         return i
 
     '''
-    ia = Individual(len_eval, c)
-    ib = Individual(len_eval, d)
-
-    print ia
-    print ib
-
-    print '============================================================'
     ic = Individual( ia.mate(ib), len_eval )
-    print
-    print 'ic'
-    print ic
     ''' 
     
     indies = []
@@ -79,5 +78,7 @@ if __name__ == '__main__':
         indies.append( Individual(c, len_eval) )
 
     pop = Population(indies, size=3)
+    pop.mutation()
     pop.selection()
     
+

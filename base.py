@@ -24,7 +24,8 @@ class Chromosome(object):
 
     def mutate(self, prob):
         for k,v in self.genes.items():
-            if prob <= random.random():
+            rand = random.random()
+            if prob >= rand:
                 v.mutate()
                 print v
 
@@ -55,7 +56,7 @@ class Chromosome(object):
         return (a, b)
 
 class Individual(object):
-    def __init__(self, chrom, fitness_func=None ):
+    def __init__(self, chrom, fitness_func=None):
         self.chromosome = chrom 
         self.eval_fitness = fitness_func 
 
