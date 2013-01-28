@@ -18,7 +18,7 @@ class Population(object):
         for i in self.indivs:
             i.chromosome.mutate(prob)
 
-    def selection(self, proletariat=0.6):
+    def evolve(self, proletariat=0.6):
         evals = [ (i.fitness, i) for i in self.indivs ]
         evals.sort(reverse=True)
         print evals
@@ -27,19 +27,21 @@ class Population(object):
         #Eliteism used to pick best two parentsPick the best, mate them
         schmexya = evals.pop()[1]
         schmexyb = evals.pop()[1]
+        print evals
         messiah = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
         messiah2 = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
-        messiah3 = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
-        self.indivs = [schmexya, schmexyb, messiah, messiah2, messiah3]
         
-        #print 'indivs', self.indivs
+        self.indivs = [messiah, messiah2]
         print len(self.indivs), len(evals), self.size
         while len(self.indivs) < self.size and len(evals) > 2:
             #NOTE: currently parrents are swingers and just randomly have children
             a = evals.pop(int(len(evals) * random.random()) )[1]
             b = evals.pop(int(len(evals) * random.random()) )[1]
+            print evals
             self.indivs.append(Individual(a.mate(b), a.eval_fitness))
             self.indivs.append(Individual(a.mate(b), a.eval_fitness))
+        for i in self.indivs:
+            print i.fitness, [ v.trait for k,v in i.chromosome.genes.items()]
             
 
 if __name__ == '__main__':
@@ -73,28 +75,26 @@ if __name__ == '__main__':
             x.trait = choice(list(x.possible_traits))
             gs[str(i)] = x
             i += 1
-
         return gs
 
     def len_eval(genes):
         i = 0
         for k,v in genes.items():
-            #print v.trait
             i += len(v.trait)
         return i
 
     indies = []
-    for x in range(0, 10):
+    for x in range(0, 20):
         genes = get_genes()
         c = Chromosome(genes)
         indies.append( Individual(c, len_eval) )
 
     pop = Population(indies, size=20)
     i = 0
-    while i < 100:
+    while i < 5:
         i += 1
         print 'GENERATION ==============================================='
-        pop.mutation()
-        pop.selection()
+        pop.mutation(prob=0.09)
+        pop.evolve()
     
 
