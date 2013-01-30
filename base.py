@@ -27,7 +27,7 @@ class Chromosome(object):
             rand = random.random()
             if prob >= rand:
                 v.mutate()
-                print v
+                print 'Mutated:', v
 
     def crossover(self, prob, chrom2):
         i = 0
