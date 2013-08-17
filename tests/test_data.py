@@ -1,6 +1,11 @@
+from __future__ import unicode_literals
+from __future__ import print_function
+
 from genetics.base import Gene, Chromosome
+import random
 
 rand_seed = 5
+random.seed(rand_seed)
 
 a = Gene( traits=set(['action', 'inaction', 'protection', 
                         'procrastination']))
@@ -15,5 +20,5 @@ genes = [a, b, c, d, e, f]
 
 coin = Gene(traits={True, False})
 
-c = Chromosome(genes)
+C = Chromosome(genes)
 
