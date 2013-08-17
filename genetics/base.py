@@ -9,7 +9,7 @@ class Gene(object):
         self.alleles = traits
 
     def __str__(self):
-        return '{}\n{}'.format(self.trait, profrmat(self.alleles))
+        return '{} {}'.format(self.trait, pformat(self.alleles))
     
     def mutate(self):
         self.trait = random.choice(list(self.alleles))
@@ -20,32 +20,37 @@ class Chromosome(object):
     organism. A chromosome consist of genes, blocks of DNA.'''
 
     def __init__(self, genes):
-        self.genes = genes
+        '''genes: dictionary of Gene objects'''
+        self.genes = { g.trait: g for g in genes }
 
     def __str__(self):
         x = self.__repr__() + '\n'
-        for k,v in self.genes.items():
-            x += k.ljust(5) + str(v) + '\n'
+        for g in self.genes:
+            x += ' ' + str(g) + '\n'
         return x
 
     def mutate(self, prob):
+        '''Potentially mutate all the genes given a probability.
+                prob: Float probability for genes to mutate
+        '''
         for k,v in self.genes.items():
             rand = random.random()
             if prob >= rand:
                 v.mutate()
                 print('Mutated:', v)
 
-    def crossover(self, prob, chrom2):
+    def crossover(self, chrom2, prob,):
         i = 0
         split = int(len(self.genes)*prob)
-        offspring = {}
+        crossed = {}
         for k,v in self.genes.items():
             if i > split:
-                offspring[k] = chrom2.genes[k] 
+                crossed[k] = chrom2.genes[k] 
             else:
-                offspring[k] = self.genes[k]
+                crossed[k] = self.genes[k]
+            i += 1
 
-        return Chromosome(offspring)
+        return Chromosome(crossed)
         
     def split(self, percentage_point):
         x = int(len(self.genes) * percentage_point)
