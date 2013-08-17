@@ -1,18 +1,24 @@
 import random
+from pprint import pformat
 
 class Gene(object):
+    '''Each gene encodes a trait, for example color of eyes. 
+    Possible settings for a trait (e.g. blue, brown) are called alleles.'''
     def __init__(self, trait=None, traits=None,):
         self.trait = trait
-        self.possible_traits = traits
+        self.alleles = traits
 
     def __str__(self):
-        return '{} {})'.format(self.trait, self.possible_traits)
+        return '{}\n{}'.format(self.trait, profrmat(self.alleles))
     
     def mutate(self):
-        self.trait = random.choice(list(self.possible_traits))
+        self.trait = random.choice(list(self.alleles))
 
 
 class Chromosome(object):
+    '''Chromosomes are strings of DNA and serves as a model for the whole
+    organism. A chromosome consist of genes, blocks of DNA.'''
+
     def __init__(self, genes):
         self.genes = genes
 
