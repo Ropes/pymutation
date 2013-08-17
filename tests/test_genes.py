@@ -31,9 +31,9 @@ class TestGenes(unittest.TestCase):
         b.mutate()
         '''
         print('\n', file=sys.stderr)
-        print(self.a, file=sys.stderr) 
-        print(self.b, file=sys.stderr) 
+        print(a, file=sys.stderr) 
+        print(b, file=sys.stderr) 
         '''
-        self.assertEqual('procrastination', a.trait)
+        self.assertEqual('protection', a.trait)
         self.assertEqual('malice', b.trait)
         

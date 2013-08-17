@@ -19,7 +19,11 @@ class Gene(object):
         return '{} {}'.format(self.trait, pformat(self.alleles))
     
     def mutate(self):
-        self.trait = random.choice(list(self.alleles))
+        if hasattr(self, 'trait'):
+            options = self.alleles - {self.trait}
+            self.trait = random.choice(list(options))
+        else:
+            self.trait = random.choice(list(self.alleles))
 
 
 class Chromosome(object):
