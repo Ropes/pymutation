@@ -62,12 +62,14 @@ class Chromosome(object):
     def crossover(self, chrom2, prob,):
         i = 0
         split = int(len(self.genes)*prob)
+        #print('Split: {}'.format(split), file=stderr)
         crossed = {}
         for k,v in self.genes.items():
-            if i > split:
-                crossed[k] = chrom2.genes[k] 
-            else:
+            if i <= split:
                 crossed[k] = self.genes[k]
+            else:
+                crossed[k] = chrom2.genes[k] 
+            #print('{} {}'.format(k, i <= split), file=stderr)
             i += 1
 
         return Chromosome(crossed)
