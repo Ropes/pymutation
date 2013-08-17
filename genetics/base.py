@@ -35,7 +35,7 @@ class Chromosome(object):
         self.genes = {}
         if type(genes) is list:
             for idx, g in enumerate(genes):
-                self.genes[unicode(idx)] = g
+                self.genes[idx] = g
         elif type(genes) is dict:
             self.genes = genes
         else:
@@ -54,11 +54,10 @@ class Chromosome(object):
         '''
         for v in self.genes.values():
             rand = random.random()
-            rand = 0.1
             if prob >= rand:
                 orig = v.trait
                 v.mutate()
-                print('Mutated: {}, orig: {}'.format(v, orig), file=stderr)
+                #print('Mutated: {}, orig: {}'.format(v, orig), file=stderr)
 
     def crossover(self, chrom2, prob,):
         i = 0

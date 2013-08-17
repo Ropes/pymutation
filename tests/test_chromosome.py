@@ -11,14 +11,21 @@ from test_data import *
 class TestChromosomes(unittest.TestCase):
 
     def setUp(self):
-        random.seed(rand_seed)
+        #random.seed(rand_seed)
+        random.seed(8)
 
     def tearDown(self):
         pass
 
 
     def test_mutate(self):
-        print(C, file=stderr)
+        #print(C.genes[1], file=stderr)
+        #print('pre mutation {}'.format(C), file=stderr)
+        self.assertEqual(C.genes[1].trait, 'malice')
+        self.assertEqual(C.genes[3].trait, 'yang')
         C.mutate(0.5)
-        print('mutated: {}'.format(C), file=stderr)
+        #print('mutated: {}'.format(C), file=stderr)
+
+        self.assertEqual(C.genes[1].trait, 'hate')
+        self.assertEqual(C.genes[3].trait, 'yang')
     
