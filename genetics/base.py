@@ -1,12 +1,19 @@
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import random
+from sys import stderr
 from pprint import pformat
 
 class Gene(object):
     '''Each gene encodes a trait, for example color of eyes. 
     Possible settings for a trait (e.g. blue, brown) are called alleles.'''
     def __init__(self, trait=None, traits=None,):
-        self.trait = trait
         self.alleles = traits
+        if trait:
+            self.trait = trait
+        else:
+            self.mutate()
 
     def __str__(self):
         return '{} {}'.format(self.trait, pformat(self.alleles))
@@ -21,23 +28,33 @@ class Chromosome(object):
 
     def __init__(self, genes):
         '''genes: dictionary of Gene objects'''
-        self.genes = { g.trait: g for g in genes }
+        self.genes = {}
+        if type(genes) is list:
+            for idx, g in enumerate(genes):
+                self.genes[unicode(idx)] = g
+        elif type(genes) is dict:
+            self.genes = genes
+        else:
+            print('Unhandled gene initialization format.\n'+\
+            'Required: list[Genes] or dict{trait:Gene}', file=stderr)
 
     def __str__(self):
         x = self.__repr__() + '\n'
-        for g in self.genes:
-            x += ' ' + str(g) + '\n'
+        for k, v in self.genes.items():
+            x += '  {}:{}\n'.format(k, v)
         return x
 
     def mutate(self, prob):
         '''Potentially mutate all the genes given a probability.
                 prob: Float probability for genes to mutate
         '''
-        for k,v in self.genes.items():
+        for v in self.genes.values():
             rand = random.random()
+            rand = 0.1
             if prob >= rand:
+                orig = v.trait
                 v.mutate()
-                print('Mutated:', v)
+                print('Mutated: {}, orig: {}'.format(v, orig), file=stderr)
 
     def crossover(self, chrom2, prob,):
         i = 0
