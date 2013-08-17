@@ -27,7 +27,7 @@ class Chromosome(object):
             rand = random.random()
             if prob >= rand:
                 v.mutate()
-                print 'Mutated:', v
+                print('Mutated:', v)
 
     def crossover(self, prob, chrom2):
         i = 0
@@ -39,7 +39,6 @@ class Chromosome(object):
             else:
                 offspring[k] = self.genes[k]
 
-        #print offspring
         return Chromosome(offspring)
         
     def split(self, percentage_point):

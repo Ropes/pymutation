@@ -3,6 +3,7 @@
 from base import *
 from copy import deepcopy
 from random import choice
+import pdb
 
 evalfitness = None
 
@@ -33,8 +34,8 @@ class Population(object):
         self.indivs = [messiah, messiah2]
         #for i in self.indivs:
         #    print i.fitness, [ v.trait for k,v in i.chromosome.genes.items()]
-        print self.indivs
-        print len(self.indivs), len(evals), self.size
+        print(self.indivs)
+        print(len(self.indivs), len(evals), self.size)
         while len(self.indivs) < self.size:
             #NOTE: currently parrents are swingers and just randomly have children
             randa = int(len(evals) * random.random())
@@ -42,11 +43,13 @@ class Population(object):
             #print 'randoms:', randa, randb
             a = evals[randa][1]
             b = evals[randb][1]
-            self.indivs.append(Individual(a.mate(b), evalfitness))
+            c = a.mate(b)
+            print(c)
+            self.indivs.append(Individual(c, evalfitness))
             #self.indivs.append(Individual(a.mate(b), evalfitness))
 
         for i in self.indivs:
-            print i.fitness, [ v.trait for k,v in i.chromosome.genes.items()]
+            print( i.fitness, [ v.trait for k,v in i.chromosome.genes.items()] )
         #print self.indivs
             
 
@@ -94,12 +97,15 @@ if __name__ == '__main__':
     for x in range(0, 20):
         genes = get_genes()
         c = Chromosome(genes)
+        pdb.set_trace()
         indies.append( Individual(c, len_eval) )
 
-    pop = Population(indies, size=20)
-    for i in range(0, 100):
-        print 'GENERATION ==============================================='
-        pop.mutation(prob=0.08)
+    pop = Population(indies, size=12)
+    for i in range(0, 10):
+        print('GENERATION ===============================================')
+        print(pop.indivs)
+        pop.mutation(prob=0.3)
+        pdb.set_trace()
         pop.evolve()
     
 
