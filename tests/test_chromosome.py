@@ -6,10 +6,9 @@ import sys
 import unittest
 
 from genetics.base import Gene, Chromosome
+from test_data import *
 
 class TestChromosomes(unittest.TestCase):
-    rand_seed = 5
-
 
     def setUp(self):
         random.seed(self.rand_seed)
