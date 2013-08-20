@@ -80,10 +80,10 @@ class Chromosome(object):
             i = random.random()
             if i >= prob:
                 crossed[k] = self.genes[k]
-                print('chose self: {},{}, {}'.format(k, crossed[k], i), file=stderr)
+                #print('chose self: {},{}, {}'.format(k, crossed[k], i), file=stderr)
             else:
                 crossed[k] = chrom2.genes[k] 
-                print('chose mate: {},{}, {}'.format(k, crossed[k], i), file=stderr)
+                #print('chose mate: {},{}, {}'.format(k, crossed[k], i), file=stderr)
             i += 1
 
         return Chromosome(crossed)
@@ -109,8 +109,10 @@ class Individual(object):
 
     def __str__(self):
        
-        x = 'Individual: ' + str(self.chromosome)
-        x += str(self.eval_fitness)
+        x = 'Individual: \n'
+        for k,v in self.chromosome.genes.items():
+            x += '   {}  {}\n'.format(k, v.trait)
+        x += 'Fitness: {}'.format(unicode(self.fitness))
         return x
 
     def mate(self, partner_chroms, exchange=0.5):

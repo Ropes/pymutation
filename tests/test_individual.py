@@ -21,10 +21,16 @@ class TestIndividual(unittest.TestCase):
         C2.mutate(0.5)
         i0 = Individual(C, len_eval) 
         i1 = Individual(C2, len_eval)
-        print('i0:{}'.format(i0), file=stderr)
-        print('i1:{}'.format(i1), file=stderr)
-        print('', file=stderr)
+        print('i0:{}'.format(i0))
+        print('i1:{}'.format(i1))
         
         i2 = i0.mate(i1, 0.5)
-        print('i2:{}'.format(i2), file=stderr)
+        print('i2:{}'.format(i2))
+
+    def test_eval_fitness(self):
+        i0 = Individual(C, len_eval)
+        print(i0)
+        fitness = i0.fitness
+        print('Fitness: {}'.format(fitness))
+        self.assertEqual(fitness, 38)
         
