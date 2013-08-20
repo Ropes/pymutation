@@ -33,13 +33,12 @@ class Population(object):
         #Eliteism used to pick best two parentsPick the best, mate them
         schmexya = evals.pop(0)[1]
         schmexyb = evals.pop(0)[1]
-        messiah = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
-        messiah2 = Individual( schmexya.mate(schmexyb), schmexya.eval_fitness)
+        messiah = schmexya.mate(schmexyb, schmexya.eval_fitness)
+        messiah2 = schmexya.mate(schmexyb, schmexya.eval_fitness)
         
         self.indivs = [messiah, messiah2]
         #for i in self.indivs:
         #    print i.fitness, [ v.trait for k,v in i.chromosome.genes.items()]
-        print(self.indivs)
         print(len(self.indivs), len(evals), self.size)
         while len(self.indivs) < self.size:
             #NOTE: currently parrents are swingers and just randomly have children
@@ -50,16 +49,17 @@ class Population(object):
             b = evals[randb][1]
             c = a.mate(b)
             print('mated child: ' + unicode(c))
-            self.indivs.append(Individual(c, evalfitness))
+            self.indivs.append(c)
             #self.indivs.append(Individual(a.mate(b), evalfitness))
 
+        '''
         for i in self.indivs:
             print( i )
         #print self.indivs
+        '''
             
 
 if __name__ == '__main__':
-    global evalfitness
     a = Gene( traits=set(['action', 'inaction', 'protection', 
                             'procrastination']))
     b = Gene( traits=set(['love', 'hate', 'kindness', 'malice', 'wicked']))
@@ -71,13 +71,6 @@ if __name__ == '__main__':
                                 'stencil', 'vbo', 'vertext', 'mesh', 'screen' ]))
     Genes = [a, b, c, d, e, f] 
 
-    print
-    print
-    print
-    print
-    print
-    print
-    print
     print
     print
 
@@ -97,12 +90,18 @@ if __name__ == '__main__':
         c = Chromosome(get_genes())
         indies.append( Individual(c, len_eval) )
 
-    pop = Population(indies, size=12)
-    for i in range(0, 10):
+    pop = Population(indies, size=42)
+    for i in range(0, 100):
         print('GENERATION ===============================================')
-        print(pop.indivs)
-        pop.mutation(prob=0.1)
+        pop.mutation(prob=0.3)
         #pdb.set_trace()
         pop.evolve()
+        print
+        print
+        print
+
+    x = [ i.fitness for i in pop.indivs ]
+    print sorted(x)
+        
     
 

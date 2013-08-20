@@ -107,7 +107,8 @@ class Individual(object):
     def __init__(self, chrom, fitness_func=None):
         self.chromosome = chrom 
         self.eval_fitness = fitness_func 
-        assert self.chromosome
+        assert isinstance(chrom, Chromosome), 'Instance actual type: {}'\
+                                    .format(type(chrom))
 
     def __str__(self):
        
