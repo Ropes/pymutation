@@ -5,7 +5,12 @@ from copy import deepcopy
 from random import choice
 import pdb
 
-evalfitness = None
+def len_eval(genes):
+    i = 0
+    for k,v in genes.items():
+        i += len(v.trait)
+    return i
+evalfitness = len_eval
 
 class Population(object):
     def __init__(self, indivs, size=20):
@@ -44,12 +49,12 @@ class Population(object):
             a = evals[randa][1]
             b = evals[randb][1]
             c = a.mate(b)
-            print(c)
+            print('mated child: ' + unicode(c))
             self.indivs.append(Individual(c, evalfitness))
             #self.indivs.append(Individual(a.mate(b), evalfitness))
 
         for i in self.indivs:
-            print( i.fitness, [ v.trait for k,v in i.chromosome.genes.items()] )
+            print( i )
         #print self.indivs
             
 
@@ -81,31 +86,23 @@ if __name__ == '__main__':
         i = 0
         for g in Genes:
             x = deepcopy(g)
-            x.trait = choice(list(x.possible_traits))
+            x.trait = choice(list(x.alleles))
             gs[str(i)] = x
             i += 1
         return gs
 
-    def len_eval(genes):
-        i = 0
-        for k,v in genes.items():
-            i += len(v.trait)
-        return i
-    evalfitness = len_eval
 
     indies = []
     for x in range(0, 20):
-        genes = get_genes()
-        c = Chromosome(genes)
-        pdb.set_trace()
+        c = Chromosome(get_genes())
         indies.append( Individual(c, len_eval) )
 
     pop = Population(indies, size=12)
     for i in range(0, 10):
         print('GENERATION ===============================================')
         print(pop.indivs)
-        pop.mutation(prob=0.3)
-        pdb.set_trace()
+        pop.mutation(prob=0.1)
+        #pdb.set_trace()
         pop.evolve()
     
 

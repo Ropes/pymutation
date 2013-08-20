@@ -41,6 +41,7 @@ class Chromosome(object):
         else:
             print('Unhandled gene initialization format.\n'+\
             'Required: list[Genes] or dict{trait:Gene}', file=stderr)
+        assert self.genes
 
     def __str__(self):
         x = self.__repr__() + '\n'
@@ -106,6 +107,7 @@ class Individual(object):
     def __init__(self, chrom, fitness_func=None):
         self.chromosome = chrom 
         self.eval_fitness = fitness_func 
+        assert self.chromosome
 
     def __str__(self):
        
@@ -122,6 +124,7 @@ class Individual(object):
         
 
     def wat_mate(self, male):
+        #TODO: Not exactly sure why this function became so complicated...
         '''Take current indevidual and mate them with another indevidual.
             Returns a Chromosome object to be inserted in new individual. 
         '''
