@@ -80,9 +80,10 @@ class Chromosome(object):
             i = random.random()
             if i >= prob:
                 crossed[k] = self.genes[k]
+                print('chose self: {},{}, {}'.format(k, crossed[k], i), file=stderr)
             else:
                 crossed[k] = chrom2.genes[k] 
-                #print('swapping: {},{}, {}'.format(k, crossed[k], i), file=stderr)
+                print('chose mate: {},{}, {}'.format(k, crossed[k], i), file=stderr)
             i += 1
 
         return Chromosome(crossed)
@@ -112,7 +113,13 @@ class Individual(object):
         x += str(self.eval_fitness)
         return x
 
-    def mate(self, male):
+    def mate(self, partner_chroms, exchange=0.5):
+
+       return Individual(self.chromosome.swap(partner_chroms.chromosome, exchange),\
+                            self.eval_fitness)
+        
+
+    def wat_mate(self, male):
         '''Take current indevidual and mate them with another indevidual.
             Returns a Chromosome object to be inserted in new individual. 
         '''

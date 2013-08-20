@@ -22,3 +22,8 @@ coin = Gene(traits={True, False})
 
 C = Chromosome(genes)
 
+def len_eval(genes):
+    i = 0
+    for k,v in genes.items():
+        i += len(v.trait)
+    return i
