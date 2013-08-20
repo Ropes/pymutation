@@ -73,6 +73,20 @@ class Chromosome(object):
             i += 1
 
         return Chromosome(crossed)
+
+    def swap(self, chrom2, prob):
+        crossed = {} 
+        for k,v in self.genes.items():
+            i = random.random()
+            if i >= prob:
+                crossed[k] = self.genes[k]
+            else:
+                crossed[k] = chrom2.genes[k] 
+                #print('swapping: {},{}, {}'.format(k, crossed[k], i), file=stderr)
+            i += 1
+
+        return Chromosome(crossed)
+        
         
     def split(self, percentage_point):
         x = int(len(self.genes) * percentage_point)

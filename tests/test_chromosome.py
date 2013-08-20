@@ -49,3 +49,17 @@ class TestChromosomes(unittest.TestCase):
         self.assertEqual(C3.genes[4].trait, 'internal')
         self.assertEqual(C3.genes[5].trait, 'mesh')
 
+    def test_split(self):
+        C2 = deepcopy(C)
+        C2.mutate(0.5)
+        #print('C:{}'.format(C), file=stderr)
+        #print('C2:{}'.format(C2), file=stderr)
+
+        C3 = C2.swap(C, 0.4)
+        #print('C3:{}'.format(C3), file=stderr)
+
+        self.assertEqual(C3.genes[1].trait, 'hate')
+        self.assertEqual(C3.genes[3].trait, 'yang')
+        self.assertEqual(C3.genes[2].trait, 'water')
+
+
